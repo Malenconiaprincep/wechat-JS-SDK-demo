@@ -3,15 +3,9 @@
  * 如果有需要可以将这些信息放到数据库中读取方便以更增加
  * 注：测试时请替换您真实的appid和secret
  */
-module.exports = function(){
-	return [
-			{
-				appid: 'wx211e56118677xxxx'
-				,secret: 'e2f63d171ac1b3170cf44920872fxxxx'
-			}
-			,{
-				appid: 'wxa0f06601f194xxxx'
-				,secret: '097fd14bac218d0fb016d02f525dxxxx'
-			}
-		];
+module.exports = function() {
+	return [{
+		appid: 'wx021658577f951072',
+		secret: 'fb46e607c25aff850c6c5d65efbe4a00'
+	}];
 };
