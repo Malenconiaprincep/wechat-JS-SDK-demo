@@ -106,9 +106,9 @@ module.exports = function(app) {
 			var nonceStr = createNonceStr();
 			var ticket = resp.ticket;
 			var signature = sign(ticket, nonceStr, ts, url);
-			console.log(signature + 'sign');
+			console.log(typeof(signature) + 'sign');
 			var signature = calcSignature(ticket, nonceStr, ts, url);
-			console.log(signature + 'calcSignature')
+			console.log(typeof(signature) + 'calcSignature')
 			cachedSignatures[url] = {
 				nonceStr: nonceStr,
 				appid: appid,
