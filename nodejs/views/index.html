@@ -122,14 +122,13 @@
 	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 	<script>
 		$.ajax({
-			url: 'http://54.149.38.199:8080/'// 此处url请求地址需要替换成你自己实际项目中服务器数字签名服务地址
+			url: 'http://piaoshihuang.cn/rsx/0/'// 此处url请求地址需要替换成你自己实际项目中服务器数字签名服务地址
 			,type: 'get'
 			,data: {
 				url: location.href.split('#')[0] // 将当前URL地址上传至服务器用于产生数字签名
 			}
 		}).done(function(r){
 			// 返回了数字签名对象
-			r = r.config;
 			console.log(r);
 			console.log(r.appid);
 			console.log(r.timestamp);
