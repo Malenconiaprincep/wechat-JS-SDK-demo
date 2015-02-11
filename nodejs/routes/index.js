@@ -10,7 +10,7 @@ var https = require("https");
 var querystring = require('querystring');
 var request = require('request');
 var sign = require('../lib/sign.js');
-var _url = "http://piaoshihuang.cn";
+var _url = "http://piaoshihuang.cn/";
 
 module.exports = function(app) {
 	// 输出数字签名对象
