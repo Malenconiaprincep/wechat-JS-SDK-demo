@@ -10,6 +10,7 @@ var https = require("https");
 var jsSHA = require('jssha');
 var querystring = require('querystring');
 var request = require('request');
+var sign = require('../lib/sign.js');
 
 module.exports = function(app) {
 	// 输出数字签名对象
@@ -98,7 +99,8 @@ module.exports = function(app) {
 			var ts = createTimeStamp();
 			var nonceStr = createNonceStr();
 			var ticket = resp.ticket;
-			var signature = calcSignature(ticket, nonceStr, ts, url);
+			var signature = sign(ticket, url);
+			// var signature = sign(ticket, nonceStr, ts, url);
 
 			cachedSignatures[url] = {
 				nonceStr: nonceStr,
@@ -116,44 +118,6 @@ module.exports = function(app) {
 				url: url
 			});
 		})
-
-		// https.get(jsapi_ticket_url, function(_res) {
-		// 	var str = '',
-		// 		resp;
-		// 	_res.on('data', function(data) {
-		// 		str += data;
-		// 	});
-		// 	_res.on('end', function() {
-		// 		console.log('return ticket:  ' + str);
-		// 		try {
-		// 			resp = JSON.parse(str);
-		// 		} catch (e) {
-		// 			return errorRender(res, '解析远程JSON数据错误', str);
-		// 		}
-
-		// 		var appid = appIds[index].appid;
-		// 		var ts = createTimeStamp();
-		// 		var nonceStr = createNonceStr();
-		// 		var ticket = resp.ticket;
-		// 		var signature = calcSignature(ticket, nonceStr, ts, url);
-
-		// 		cachedSignatures[url] = {
-		// 			nonceStr: nonceStr,
-		// 			appid: appid,
-		// 			timestamp: ts,
-		// 			signature: signature,
-		// 			url: url
-		// 		};
-
-		// 		responseWithJson(res, {
-		// 			nonceStr: nonceStr,
-		// 			timestamp: ts,
-		// 			appid: appid,
-		// 			signature: signature,
-		// 			url: url
-		// 		});
-		// 	});
-		// });
 	};
 
 	// 服务根目录默认输出页
