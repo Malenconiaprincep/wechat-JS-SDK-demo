@@ -43,7 +43,8 @@ var sign = function(jsapi_ticket, nonceStr, timestamp, url) {
   jsSHA = require('jssha');
   shaObj = new jsSHA(string, 'TEXT');
   ret.signature = shaObj.getHash('SHA-1', 'HEX');
-
+  console.log('sign');
+  console.log(shaObj.getHash('SHA-1', 'HEX'));
   return ret;
 };
 
