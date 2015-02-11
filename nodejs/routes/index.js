@@ -164,7 +164,7 @@ module.exports = function(app) {
 
 
 		// 获取微信签名所需的access_token
-		var tokenurl = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' + appIds[index].appid + '&secret=' + appIds[index].secret;
+		var token_url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' + appIds[index].appid + '&secret=' + appIds[index].secret;
 		// https.get(', function(_res) {
 		// 	var str = ''; _res.on('data', function(data) {
 		// 		str += data;
