@@ -92,7 +92,7 @@ module.exports = function(app) {
 			// 	signature: config.signature,
 			// 	url: url
 			// };
-
+			console.log(url);
 			responseWithJson(res, {
 				nonceStr: config.nonceStr,
 				timestamp: config.timestamp,
