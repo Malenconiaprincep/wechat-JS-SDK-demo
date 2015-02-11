@@ -181,9 +181,9 @@ module.exports = function(app) {
 		// })
 		request(token_url, function(error, response, body) {
 			if (!error && response.statusCode == 200) {
-				logger.info('access_token');
-				logger.info(body);
-				token = JSON.parse(body).access_token;
+				console.log('access_token');
+				console.log(body);
+				var token = JSON.parse(body).access_token;
 				getTicket(_url, index, res, token);
 			}
 		})
