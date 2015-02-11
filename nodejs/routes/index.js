@@ -110,7 +110,7 @@ module.exports = function(app) {
 	});
 
 	// 通过请求中带的index值来判断是公司运营的哪个公众平台
-	app.post('/rsx/:index', function(req, res) {
+	app.get('/rsx/:index', function(req, res) {
 		var index = req.params.index;
 		// var signatureObj = cachedSignatures[_url];
 
