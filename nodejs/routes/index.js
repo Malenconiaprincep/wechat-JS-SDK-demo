@@ -10,6 +10,7 @@ var https = require("https");
 var querystring = require('querystring');
 var request = require('request');
 var sign = require('../lib/sign.js');
+var _url = 'http://piaoshihuang.cn';
 
 module.exports = function(app) {
 	// 输出数字签名对象
@@ -111,12 +112,7 @@ module.exports = function(app) {
 	// 通过请求中带的index值来判断是公司运营的哪个公众平台
 	app.get('/rsx/:index', function(req, res) {
 		var index = req.params.index;
-		var _url = req.body.url;
 		// var signatureObj = cachedSignatures[_url];
-
-		if (!_url) {
-			return errorRender(res, '缺少url参数');
-		}
 
 		// // 如果缓存中已存在签名，则直接返回签名
 		// if (signatureObj && signatureObj.timestamp) {
