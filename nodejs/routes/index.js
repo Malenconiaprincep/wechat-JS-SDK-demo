@@ -99,6 +99,8 @@ module.exports = function(app) {
 			var ts = createTimeStamp();
 			var nonceStr = createNonceStr();
 			var ticket = resp.ticket;
+			console.log(ticket)
+			console.log('========ticket');
 			// var signature = sign(ticket, url);
 			var signature = calcSignature(ticket, nonceStr, ts, url);
 
