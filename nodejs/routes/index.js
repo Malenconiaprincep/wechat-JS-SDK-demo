@@ -99,20 +99,20 @@ module.exports = function(app) {
 			var ts = createTimeStamp();
 			var nonceStr = createNonceStr();
 			var ticket = resp.ticket;
-			var signature = sign(ticket, ts, url).signature;
+			var signature = sign(ticket, url);
 			cachedSignatures[url] = {
-				nonceStr: nonceStr,
+				nonceStr: signature.nonceStr,
 				appid: appid,
-				timestamp: ts,
-				signature: signature,
+				timestamp: signature.timestamp,
+				signature: signature.signature,
 				url: url
 			};
 
 			responseWithJson(res, {
-				nonceStr: nonceStr,
-				timestamp: ts,
+				nonceStr: signature.nonceStr,
+				timestamp: signature.timestamp,
 				appid: appid,
-				signature: signature,
+				signature: signature.signature,
 				url: url
 			});
 		})

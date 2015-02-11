@@ -30,11 +30,11 @@ var raw = function(args) {
  *
  * @returns
  */
-var sign = function(jsapi_ticket, timestamp, url) {
+var sign = function(jsapi_ticket, url) {
   var ret = {
     jsapi_ticket: jsapi_ticket,
     nonceStr: createNonceStr(),
-    timestamp: timestamp,
+    timestamp: createTimestamp(),
     url: url
   };
   var string = raw(ret);
