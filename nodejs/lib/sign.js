@@ -38,9 +38,13 @@ var sign = function(jsapi_ticket, url) {
     url: url
   };
   var string = raw(ret);
+  console.log(string);
+  console.log('===========sign')
+  jsSHA = require('jssha');
+  shaObj = new jsSHA(string, 'TEXT');
+  ret.signature = shaObj.getHash('SHA-1', 'HEX');
 
-
-  return string;
+  return ret;
 };
 
 module.exports = sign;
