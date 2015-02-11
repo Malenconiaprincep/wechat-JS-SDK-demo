@@ -84,13 +84,7 @@ module.exports = function(app) {
 	// 计算签名
 	var calcSignature = function(ticket, noncestr, ts, url) {
 		var str = 'jsapi_ticket=' + ticket + '&noncestr=' + noncestr + '&timestamp=' + ts + '&url=' + url;
-
-		console.log(str)
-		console.log('========calcSignature');
-
 		shaObj = new jsSHA(str, 'TEXT');
-		console.log('====calcSignature');
-		console.log(shaObj.getHash('SHA-1', 'HEX'));
 		return shaObj.getHash('SHA-1', 'HEX');
 	}
 
@@ -106,7 +100,7 @@ module.exports = function(app) {
 			var nonceStr = createNonceStr();
 			var ticket = resp.ticket;
 			var signature = sign(ticket, nonceStr, ts, url);
-			console.log(typeof(signature) + 'sign');
+			console.log(signature);
 			var signature = calcSignature(ticket, nonceStr, ts, url);
 			console.log(typeof(signature) + 'calcSignature')
 			cachedSignatures[url] = {
