@@ -99,7 +99,7 @@ module.exports = function(app) {
 			var ts = createTimeStamp();
 			var nonceStr = createNonceStr();
 			var ticket = resp.ticket;
-			var signature = sign(ticket, url).signature;
+			var signature = sign(ticket, nonceStr, ts, url).signature;
 			cachedSignatures[url] = {
 				nonceStr: nonceStr,
 				appid: appid,
