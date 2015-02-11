@@ -23,6 +23,11 @@ module.exports = function(app) {
 		res.json(data);
 	};
 
+	// 时间戳产生函数
+	var createTimeStamp = function() {
+		return parseInt(new Date().getTime() / 1000) + '';
+	};
+
 	var errorRender = function(res, info, data) {
 		if (data) {
 			console.log(data);
