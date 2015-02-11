@@ -9,6 +9,7 @@ var http = require("http");
 var https = require("https");
 var jsSHA = require('jssha');
 var querystring = require('querystring');
+var request = require('request');
 
 module.exports = function(app) {
 	// 输出数字签名对象
@@ -163,21 +164,28 @@ module.exports = function(app) {
 
 
 		// 获取微信签名所需的access_token
-		https.get('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' + appIds[index].appid + '&secret=' + appIds[index].secret, function(_res) {
-			var str = '';
-			_res.on('data', function(data) {
-				str += data;
-			});
-			_res.on('end', function() {
-				console.log('return access_token:  ' + str);
-				try {
-					var resp = JSON.parse(str);
-				} catch (e) {
-					return errorRender(res, '解析access_token返回的JSON数据错误', str);
-				}
+		var tokenurl = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' + appIds[index].appid + '&secret=' + appIds[index].secret;
+		// https.get(', function(_res) {
+		// 	var str = ''; _res.on('data', function(data) {
+		// 		str += data;
+		// 	}); _res.on('end', function() {
+		// 		console.log('return access_token:  ' + str);
+		// 		try {
+		// 			var resp = JSON.parse(str);
+		// 		} catch (e) {
+		// 			return errorRender(res, '解析access_token返回的JSON数据错误', str);
+		// 		}
 
-				getTicket(_url, index, res, resp);
-			});
+		// 		getTicket(_url, index, res, resp);
+		// 	});
+		// })
+		request(token_url, function(error, response, body) {
+			if (!error && response.statusCode == 200) {
+				logger.info('access_token');
+				logger.info(body);
+				token = JSON.parse(body).access_token;
+				getTicket(_url, index, res, token);
+			}
 		})
 
 	});
