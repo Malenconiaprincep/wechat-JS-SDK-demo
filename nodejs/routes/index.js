@@ -78,8 +78,6 @@ module.exports = function(app) {
 				var resp = JSON.parse(body);
 			}
 			var appid = appIds[index].appid;
-			var ts = createTimeStamp();
-			var nonceStr = createNonceStr();
 			var ticket = resp.ticket;
 			var config = sign(ticket, url);
 			cachedSignatures[url] = {
