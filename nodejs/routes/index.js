@@ -7,7 +7,6 @@
 
 var http = require("http");
 var https = require("https");
-var jsSHA = require('jssha');
 var querystring = require('querystring');
 var request = require('request');
 var sign = require('../lib/sign.js');
@@ -22,16 +21,6 @@ module.exports = function(app) {
 			"Access-Control-Allow-Credentials": "true"
 		});
 		res.json(data);
-	};
-
-	// 随机字符串产生函数
-	var createNonceStr = function() {
-		return Math.random().toString(36).substr(2, 15);
-	};
-
-	// 时间戳产生函数
-	var createTimeStamp = function() {
-		return parseInt(new Date().getTime() / 1000) + '';
 	};
 
 	var errorRender = function(res, info, data) {
@@ -81,13 +70,6 @@ module.exports = function(app) {
 	*/
 	var cachedSignatures = {};
 
-	// 计算签名
-	var calcSignature = function(ticket, noncestr, ts, url) {
-		var str = 'jsapi_ticket=' + ticket + '&noncestr=' + noncestr + '&timestamp=' + ts + '&url=' + url;
-		shaObj = new jsSHA(str, 'TEXT');
-		return shaObj.getHash('SHA-1', 'HEX');
-	}
-
 	// 获取微信签名所需的ticket
 	var getTicket = function(url, index, res, accessData) {
 		var jsapi_ticket_url = 'https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=' + accessData.access_token + '&type=jsapi';
@@ -99,20 +81,20 @@ module.exports = function(app) {
 			var ts = createTimeStamp();
 			var nonceStr = createNonceStr();
 			var ticket = resp.ticket;
-			var signature = sign(ticket, url);
+			var config = sign(ticket, url);
 			cachedSignatures[url] = {
-				nonceStr: signature.nonceStr,
+				nonceStr: config.nonceStr,
 				appid: appid,
-				timestamp: signature.timestamp,
-				signature: signature.signature,
+				timestamp: config.timestamp,
+				signature: config.signature,
 				url: url
 			};
 
 			responseWithJson(res, {
-				nonceStr: signature.nonceStr,
-				timestamp: signature.timestamp,
+				nonceStr: config.nonceStr,
+				timestamp: config.timestamp,
 				appid: appid,
-				signature: signature.signature,
+				signature: config.signature,
 				url: url
 			});
 		})
