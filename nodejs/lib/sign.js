@@ -30,17 +30,18 @@ var raw = function(args) {
  *
  * @returns
  */
-var sign = function(jsapi_ticket, nonceStr, timestamp, url) {
+var sign = function(jsapi_ticket, url) {
   var ret = {
     jsapi_ticket: jsapi_ticket,
-    nonceStr: nonceStr,
-    timestamp: timestamp,
+    nonceStr: createNonceStr(),
+    timestamp: createTimestamp(),
     url: url
   };
   var string = raw(ret);
   jsSHA = require('jssha');
   shaObj = new jsSHA(string, 'TEXT');
   ret.signature = shaObj.getHash('SHA-1', 'HEX');
+
   return ret;
 };
 
