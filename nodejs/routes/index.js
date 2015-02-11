@@ -85,13 +85,13 @@ module.exports = function(app) {
 			var appid = appIds[index].appid;
 			var ticket = resp.ticket;
 			var config = sign(ticket, url);
-			cachedSignatures[url] = {
-				nonceStr: config.nonceStr,
-				appid: appid,
-				timestamp: config.timestamp,
-				signature: config.signature,
-				url: url
-			};
+			// cachedSignatures[url] = {
+			// 	nonceStr: config.nonceStr,
+			// 	appid: appid,
+			// 	timestamp: config.timestamp,
+			// 	signature: config.signature,
+			// 	url: url
+			// };
 
 			responseWithJson(res, {
 				nonceStr: config.nonceStr,
@@ -112,30 +112,30 @@ module.exports = function(app) {
 	app.post('/rsx/:index', function(req, res) {
 		var index = req.params.index;
 		var _url = req.body.url;
-		var signatureObj = cachedSignatures[_url];
+		// var signatureObj = cachedSignatures[_url];
 
 		if (!_url) {
 			return errorRender(res, '缺少url参数');
 		}
 
-		// 如果缓存中已存在签名，则直接返回签名
-		if (signatureObj && signatureObj.timestamp) {
-			var t = createTimeStamp() - signatureObj.timestamp;
-			console.log(signatureObj.url, _url);
-			// 未过期，并且访问的是同一个地址
-			// 判断地址是因为微信分享出去后会额外添加一些参数，地址就变了不符合签名规则，需重新生成签名
-			if (t < expireTime && signatureObj.url == _url) {
-				console.log('======== result from cache ========');
-				return responseWithJson(res, {
-					nonceStr: signatureObj.nonceStr,
-					timestamp: signatureObj.timestamp,
-					appid: signatureObj.appid,
-					signature: signatureObj.signature,
-					url: signatureObj.url
-				});
-			}
-			// 此处可能需要清理缓存当中已过期的数据
-		}
+		// // 如果缓存中已存在签名，则直接返回签名
+		// if (signatureObj && signatureObj.timestamp) {
+		// 	var t = createTimeStamp() - signatureObj.timestamp;
+		// 	console.log(signatureObj.url, _url);
+		// 	// 未过期，并且访问的是同一个地址
+		// 	// 判断地址是因为微信分享出去后会额外添加一些参数，地址就变了不符合签名规则，需重新生成签名
+		// 	if (t < expireTime && signatureObj.url == _url) {
+		// 		console.log('======== result from cache ========');
+		// 		return responseWithJson(res, {
+		// 			nonceStr: signatureObj.nonceStr,
+		// 			timestamp: signatureObj.timestamp,
+		// 			appid: signatureObj.appid,
+		// 			signature: signatureObj.signature,
+		// 			url: signatureObj.url
+		// 		});
+		// 	}
+		// 	// 此处可能需要清理缓存当中已过期的数据
+		// }
 
 
 		// 获取微信签名所需的access_token
