@@ -111,7 +111,7 @@ module.exports = function(app) {
 	// 通过请求中带的index值来判断是公司运营的哪个公众平台
 	app.get('/rsx/:index', function(req, res) {
 		var index = req.params.index;
-		var _url = 'http://piaoshihuang.cn/';
+		var _url = 'http://piaoshihuang.cn';
 		// var signatureObj = cachedSignatures[_url];
 
 		// if (!_url) {
